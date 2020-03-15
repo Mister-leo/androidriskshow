@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">androidriskshow</string>
+    <string name="project_info">本项目主要用于演示Android中常见的漏洞信息，并介绍这些漏洞的利用和防护等信息。</string>
+    <string name="back_btn">返回</string>
+    <string name="submit_btn">提交</string>
+
+    <string name="insecure_log_btn">1.不安全的日志输出</string>
+    <string name="exported_activity_btn">2. 组件暴露</string>
+
+    <string name="insecure_log_text">Android中有LogCat的日志机制，通过LogCat不仅可以输出系统日志信息，还可以输出应用日志信息。
+（Android 4.1 之前可以由声明了READ_LOGS权限的应用读取其他应用的日志，4.1之后无法读取其它应用输出的日志信息。但是可以通过ADB，阅读输出到logcat的日志信息）\n
+在Android中，有五种类型的日志输出方式：Log.e()、Log.w()、Log.i()、Log.d()、Log.v() 。\n日常开发中，关于调试日志，应该使用Log.e()、Log.w()、Log.i() 输出操作日志信息。使用Log.d()、Log.v()输出开发日志。\n敏感信息不要由Log.e()、Log.w()、Log.i() 、System.out/err输出。
+\n可以使用adb logcat "&lt;Tag&gt;:priority" 格式的命令查看android应用输出的日志。</string>
+
+    <string name="exported_activity">Exported Activity是组件暴露漏洞的一种。假如Activity中</string>
+    <string name="exported_activity_text">在Android中有4大组件：Activity、Service、Provider、Broadcast
+如果这些组件设置不当，可能会暴露在外部，允许外部的应用程序启动该组件。如果该组件中使用了外部程序传入的数据或者该组件需要一定的权限才能访问，那么可能会造成越权或数据注入。
+Activity组件：
+    exported表示其他应用可以唤醒该Activity，并与该Activity进行交互。
+    无intent filter，默认为false
+    至少一个intent filter，默认true。
+Service组件：
+    exported表示其他应用能够唤醒该Service，并与该Service进行交互。
+    无intent filter，默认false
+    至少一个intent filter，默认为true。
+Content Provider:
+    由于Content Provider组件与其他组件不同，该组件主要用于提供数据操作，用于不同应用间的数据共享。因此如果将组件非法暴露在外，可能会造成数据泄露。
+    SDK 大于 16： 默认false
+    SDK小于等于16，默认true
+BroadCast Receiver：
+    无intent filter: 默认false
+    至少一个intent filter，默认true。
+    在本项目中设置了一些暴露的组件，可以尝试着找出并调用这些组件，并用adb logcat ":E" 命令看一下这些组件的输出</string>
+</resources>
